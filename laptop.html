@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Laptop Premium | TechVolt</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --accent: #10b981; /* Verde esmeralda para laptops */
+            --bg-dark: #020617;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        .font-header { font-family: 'Syncopate', sans-serif; }
+
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .laptop-card {
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .laptop-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px -10px rgba(16, 185, 129, 0.2);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+
+        .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .gradient-bg {
+            background: radial-gradient(circle at 50% -20%, #064e3b 0%, #020617 80%);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 4s ease-in-out infinite; }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2rem;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen">
+
+    <!-- Navegación -->
+    <nav class="fixed top-0 w-full z-50 glass border-b border-white/5 py-4">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-600 rounded-lg flex items-center justify-center animate-pulse shadow-lg shadow-emerald-500/20">
+                    <i data-lucide="laptop" class="text-white"></i>
+                </div>
+                <span class="font-header text-xl font-bold tracking-tighter uppercase italic">Tech<span class="text-emerald-500">Volt</span></span>
+            </div>
+            <div class="flex gap-4">
+                <button class="glass p-3 rounded-full hover:bg-emerald-600/20 transition-all">
+                    <i data-lucide="search" class="w-5 h-5 text-emerald-400"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Banner -->
+    <header class="pt-32 pb-16 px-6 text-center">
+        <div class="container mx-auto max-w-4xl">
+            <h1 class="font-header text-4xl md:text-7xl font-bold mb-6 tracking-tighter leading-none uppercase">
+                Workstation <br><span class="text-emerald-500">Elite</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl font-light max-w-2xl mx-auto">
+                Domina el rendimiento con nuestra selección de portátiles profesionales, gaming y ultrabooks de última generación.
+            </p>
+        </div>
+    </header>
+
+    <!-- Filtros -->
+    <section class="container mx-auto px-6 mb-12">
+        <div class="flex flex-wrap justify-center gap-4 py-6" id="filters">
+            <button class="filter-btn active px-8 py-3 rounded-full glass font-bold text-xs uppercase tracking-widest transition-all" data-category="all">Todas</button>
+            <button class="filter-btn px-8 py-3 rounded-full glass font-bold text-xs uppercase tracking-widest transition-all" data-category="pro">Profesional</button>
+            <button class="filter-btn px-8 py-3 rounded-full glass font-bold text-xs uppercase tracking-widest transition-all" data-category="gaming">Gaming</button>
+            <button class="filter-btn px-8 py-3 rounded-full glass font-bold text-xs uppercase tracking-widest transition-all" data-category="ultrabook">Ultrabooks</button>
+        </div>
+    </section>
+
+    <!-- Grid de Productos -->
+    <main class="container mx-auto px-6 pb-24">
+        <div id="laptop-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <!-- Los productos se inyectan mediante JS -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-12 glass border-t border-white/5">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-500 font-header text-[10px] tracking-[0.4em] uppercase">TechVolt Laptops © 2026 - Potencia sin límites</p>
+        </div>
+    </footer>
+
+    <script>
+        // Datos del Catálogo de Laptops
+        const laptops = [
+            { id: 1, name: "MacBook Pro M3 Max", category: "pro", price: 3499, specs: "Liquid Retina XDR, 36GB RAM", brand: "Apple" },
+            { id: 2, name: "Razer Blade 16", category: "gaming", price: 2999, specs: "RTX 4090, i9-14900HX", brand: "Razer" },
+            { id: 3, name: "Dell XPS 13 Plus", category: "ultrabook", price: 1499, specs: "InfinityEdge, Intel Evo vPro", brand: "Dell" },
+            { id: 4, name: "ASUS ROG Zephyrus G14", category: "gaming", price: 1799, specs: "AMD Ryzen 9, Nebula HDR", brand: "ASUS" },
+            { id: 5, name: "Surface Laptop 5", category: "ultrabook", price: 1299, specs: "Touchscreen, Dolby Vision IQ", brand: "Microsoft" },
+            { id: 6, name: "Lenovo ThinkPad X1", category: "pro", price: 1899, specs: "Carbon Fiber, Chasis Militar", brand: "Lenovo" },
+            { id: 7, name: "Alienware m18", category: "gaming", price: 3299, specs: "Pantalla 18\", Full Power GPU", brand: "Dell" },
+            { id: 8, name: "HP Spectre x360", category: "ultrabook", price: 1399, specs: "Convertible 2-in-1, OLED", brand: "HP" },
+        ];
+
+        const laptopGrid = document.getElementById('laptop-grid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // Función para renderizar el catálogo
+        function renderLaptops(filterCategory = 'all') {
+            laptopGrid.innerHTML = '';
+            
+            const filteredLaptops = filterCategory === 'all' 
+                ? laptops 
+                : laptops.filter(l => l.category === filterCategory);
+
+            filteredLaptops.forEach(laptop => {
+                const card = document.createElement('div');
+                card.className = 'laptop-card glass p-6 rounded-[2.5rem] flex flex-col group animate-in fade-in zoom-in duration-500';
+                
+                card.innerHTML = `
+                    <div class="image-placeholder aspect-video mb-6 relative overflow-hidden">
+                        <i data-lucide="laptop" class="w-16 h-16 text-emerald-500/20 animate-float"></i>
+                        <span class="absolute top-4 right-4 bg-emerald-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">${laptop.brand}</span>
+                    </div>
+                    <div class="flex-grow">
+                        <h3 class="text-xl font-black mb-2 uppercase tracking-tight italic">${laptop.name}</h3>
+                        <p class="text-gray-500 text-xs mb-4 leading-relaxed">${laptop.specs}</p>
+                        <div class="flex gap-2 mb-4">
+                            <span class="bg-white/5 border border-white/10 text-[9px] uppercase px-2 py-1 rounded text-emerald-400 font-bold">${laptop.category}</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center mt-4 pt-6 border-t border-white/5">
+                        <div class="flex flex-col">
+                            <span class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Inversión</span>
+                            <span class="text-2xl font-black text-emerald-400 neon-text">$${laptop.price}</span>
+                        </div>
+                        <button class="bg-emerald-600 text-white p-4 rounded-2xl hover:bg-white hover:text-black transition-all shadow-lg group-hover:-rotate-6">
+                            <i data-lucide="zap" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                `;
+                laptopGrid.appendChild(card);
+            });
+            
+            // Reinicializar iconos de Lucide
+            lucide.createIcons();
+        }
+
+        // Manejo de Filtros
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderLaptops(btn.dataset.category);
+            });
+        });
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            renderLaptops();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
